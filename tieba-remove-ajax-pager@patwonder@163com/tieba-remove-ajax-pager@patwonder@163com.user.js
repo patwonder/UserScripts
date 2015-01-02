@@ -1,12 +1,12 @@
 // ==UserScript==
 // @id             tieba-remove-ajax-pager@patwonder@163.com
 // @name           贴吧去除ajax翻页
-// @version        1.1
+// @version        1.2
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    
-// @updateURL      https://gist.githubusercontent.com/patwonder/3c488bc39c6816cd8cc7/raw/tieba-remove-ajax-pager.user.js
-// @downloadURL    https://gist.githubusercontent.com/patwonder/3c488bc39c6816cd8cc7/raw/tieba-remove-ajax-pager.user.js
+// @updateURL      https://raw.githubusercontent.com/patwonder/UserScripts/master/tieba-remove-ajax-pager@patwonder@163com/tieba-remove-ajax-pager@patwonder@163com.user.js
+// @downloadURL    https://raw.githubusercontent.com/patwonder/UserScripts/master/tieba-remove-ajax-pager@patwonder@163com/tieba-remove-ajax-pager@patwonder@163com.user.js
 // @include        http://tieba.baidu.com/club/*/p/*
 // @include        http://tieba.baidu.com/f?kz=*
 // @include        http://tieba.baidu.com/p/*

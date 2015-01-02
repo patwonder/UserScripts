@@ -1,10 +1,12 @@
 // ==UserScript==
 // @id             kill-tieba-pooling@patwonder@163.com
 // @name           贴吧内存泄漏修复 Tieba Memory Leak Fix
-// @version        1.0
+// @version        1.1
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    
+// @updateURL      https://raw.githubusercontent.com/patwonder/UserScripts/master/kill-tieba-pooling@patwonder@163com/kill-tieba-pooling@patwonder@163com.user.js
+// @downloadURL    https://raw.githubusercontent.com/patwonder/UserScripts/master/kill-tieba-pooling@patwonder@163com/kill-tieba-pooling@patwonder@163com.user.js
 // @include        http://tieba.baidu.com/*
 // @run-at         document-end
 // ==/UserScript==

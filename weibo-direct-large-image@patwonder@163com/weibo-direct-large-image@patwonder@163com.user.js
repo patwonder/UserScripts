@@ -1,12 +1,12 @@
 // ==UserScript==
 // @id             weibo-direct-large-image@patwonder@163.com
 // @name           新浪微博直接看大图
-// @version        1.2
+// @version        1.3
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description
-// @updateURL      https://gist.githubusercontent.com/patwonder/6b2c5a630e3234b017ee/raw/weibo-direct-large-image.user.js
-// @downloadURL    https://gist.githubusercontent.com/patwonder/6b2c5a630e3234b017ee/raw/weibo-direct-large-image.user.js
+// @updateURL      https://raw.githubusercontent.com/patwonder/UserScripts/master/weibo-direct-large-image@patwonder@163com/weibo-direct-large-image@patwonder@163com.user.js
+// @downloadURL    https://raw.githubusercontent.com/patwonder/UserScripts/master/weibo-direct-large-image@patwonder@163com/weibo-direct-large-image@patwonder@163com.user.js
 // @include        http://www.weibo.com/*
 // @include        http://weibo.com/*
 // @run-at         document-end

@@ -1,12 +1,12 @@
 // ==UserScript==
 // @id             tieba.baidu.com-709c0fe7-e313-44bd-9dbd-752bbd80259d@patwonder@163.com
 // @name           百度贴吧图片缩放增强脚本
-// @version        0.67
+// @version        0.68
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    增强百度贴吧图片缩放，看大图无需开新标签页。
-// @updateURL      https://gist.githubusercontent.com/patwonder/99835e0cece2ac9928ad/raw/baidu-tieba-image-scaling-enhancer.user.js
-// @downloadURL    https://gist.githubusercontent.com/patwonder/99835e0cece2ac9928ad/raw/baidu-tieba-image-scaling-enhancer.user.js
+// @updateURL      https://raw.githubusercontent.com/patwonder/UserScripts/master/tiebabaiducom-709c0fe7-e313-44bd-9dbd-752bbd80259d@pa@163com/tiebabaiducom-709c0fe7-e313-44bd-9dbd-752bbd80259d@pa@163com.user.js
+// @downloadURL    https://raw.githubusercontent.com/patwonder/UserScripts/master/tiebabaiducom-709c0fe7-e313-44bd-9dbd-752bbd80259d@pa@163com/tiebabaiducom-709c0fe7-e313-44bd-9dbd-752bbd80259d@pa@163com.user.js
 // @include        http://tieba.baidu.com/club/*/p/*
 // @include        http://tieba.baidu.com/f?kz=*
 // @include        http://tieba.baidu.com/p/*
