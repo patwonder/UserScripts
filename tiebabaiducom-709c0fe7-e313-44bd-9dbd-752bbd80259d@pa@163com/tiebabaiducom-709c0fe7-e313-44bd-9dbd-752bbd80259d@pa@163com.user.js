@@ -495,11 +495,16 @@ var common = {
         var floorNum = field && (field.content && (field.content.floor || field.content.post_no));
         if (floorNum && !isNaN(parseFloat(floorNum)) && isFinite(floorNum)) {
             var div = post.querySelector('div.d_floor') || d.createElement('div');
-            if (gravePostWarning(field.content.date))
+            var dateString = field.content.date;
+            if (!dateString) {
+              var span = post.querySelector('span.j_reply_data');
+              dateString = span ? span.textContent : '';
+            }
+            if (gravePostWarning(dateString))
                 div.className = 'd_floor grave_warning';
             else
                 div.className = 'd_floor';
-            div.textContent = getPostTimeSummary(field.content.date) + '#' + floorNum;
+            div.textContent = getPostTimeSummary(dateString) + '#' + floorNum;
             common.wrapping = true;
             post.insertBefore(div, post.querySelector('*'));
             common.wrapping = false;
