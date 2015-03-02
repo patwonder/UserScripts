@@ -44,7 +44,6 @@
             var img = expand.querySelector(imgSelector);
             if (img && /\/bmiddle\//.test(img.src)) {
               var largeImgSrc = img.src.replace(/\/bmiddle\//, "/large/");
-              console.log(largeImgSrc);
               window.open(largeImgSrc);
 
               e.stopImmediatePropagation();
