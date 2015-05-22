@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             tieba.baidu.com-709c0fe7-e313-44bd-9dbd-752bbd80259d@patwonder@163.com
 // @name           百度贴吧图片缩放增强脚本
-// @version        0.68
+// @version        0.69
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    增强百度贴吧图片缩放，看大图无需开新标签页。
@@ -486,7 +486,8 @@ var common = {
                        'div.louzhubiaoshi { right: auto !important; left: 0px; top: 0px !important; transform: rotate(-90deg); -moz-transform: rotate(-90deg); -webkit-transform: rotate(-90deg); }\n',
                        'div.louzhubiaoshi_wrap { position: static !important; }\n',
                        'div.l_post { position: relative; }\n',
-                       'div.d_floor.grave_warning { color:white; background: red; }'
+                       'div.d_floor.grave_warning { color:white; background: red; }\n',
+                       'div.d_post_content_main { background-color: transparent ! important }'
                       ].join('');
     d.querySelector('head').appendChild(style);
     
@@ -497,7 +498,7 @@ var common = {
             var div = post.querySelector('div.d_floor') || d.createElement('div');
             var dateString = field.content.date;
             if (!dateString) {
-              var span = post.querySelector('span.j_reply_data');
+              var span = post.querySelector('span.j_reply_data, .post-tail-wrap > .tail-info:last-child');
               dateString = span ? span.textContent : '';
             }
             if (gravePostWarning(dateString))
