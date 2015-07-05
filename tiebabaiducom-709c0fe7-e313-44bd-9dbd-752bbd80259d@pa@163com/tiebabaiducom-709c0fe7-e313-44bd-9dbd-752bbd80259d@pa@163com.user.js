@@ -29,7 +29,7 @@ var B_WIDESCREEN_ENABLED = true;
 var B_FLOORNUM_ENABLED = true;
 var B_SWITCH_ENABLED = true;
 
-var btise = { wideScreenEnabled : true, floorNumEnabled : true };
+var btise = { wideScreenEnabled : B_WIDESCREEN_ENABLED, floorNumEnabled : B_FLOORNUM_ENABLED };
 var localStorage = w.localStorage;
 if (localStorage) {
   localStorage = localStorage.wrappedJSObject || localStorage;
