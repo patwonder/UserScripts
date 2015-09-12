@@ -46,7 +46,7 @@
     }
   };
   w.addEventListener("click", function(e) {
-    if (matchesSelector(e.target, ".l_pager *, .pager *, #frs_list_pager *"))
+    if (matchesSelector(e.target, ".l_pager *, .pager *, #frs_list_pager *") && !matchesSelector(e.target, ".lzl_pager *"))
       return stopListener(e);
   }, true);
 })(document, typeof(unsafeWindow) !== "undefined" ? unsafeWindow : window);
