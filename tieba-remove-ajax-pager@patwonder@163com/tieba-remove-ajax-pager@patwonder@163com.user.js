@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             tieba-remove-ajax-pager@patwonder@163.com
 // @name           贴吧去除ajax翻页
-// @version        1.2
+// @version        1.3
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    
@@ -46,7 +46,7 @@
     }
   };
   w.addEventListener("click", function(e) {
-    if (matchesSelector(e.target, ".l_pager *, .pager *, #frs_list_pager *") && !matchesSelector(e.target, ".lzl_pager *"))
+    if (matchesSelector(e.target, ".l_pager *, .pager *, #frs_list_pager *") && !matchesSelector(e.target, ".lzl_li_pager *"))
       return stopListener(e);
   }, true);
 })(document, typeof(unsafeWindow) !== "undefined" ? unsafeWindow : window);
