@@ -1,13 +1,14 @@
 // ==UserScript==
 // @id             renren-auto-refresh@patwonder@163.com
 // @name           人人网每半小时自动刷新
-// @version        1.3
+// @version        1.4
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    
 // @updateURL      https://raw.githubusercontent.com/patwonder/UserScripts/master/renren-auto-refresh@patwonder@163com/renren-auto-refresh@patwonder@163com.user.js
 // @downloadURL    https://raw.githubusercontent.com/patwonder/UserScripts/master/renren-auto-refresh@patwonder@163com/renren-auto-refresh@patwonder@163com.user.js
 // @include        http://www.renren.com/*
+// @include        http://home.renren.com/*
 // @run-at         document-end
 // ==/UserScript==
 
