@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             weibo-direct-large-image@patwonder@163.com
 // @name           新浪微博直接看大图
-// @version        1.3
+// @version        1.4
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description
@@ -16,6 +16,7 @@
   var showSelector = "a.S_txt1[action-type=\"widget_photoview\"], a.S_txt1[action-type=\"widget_photoview\"] *";
   var expandSelector = "div.WB_expand_media";
   var imgSelector = ".artwork_box > img, .artwork_box > div > img";
+  var urlReplaceRegex = /\/(bmiddle)|(mw\d+)\//;
   
   function matchesSelector(element, selector) {
     if (element.mozMatchesSelector) {
@@ -42,8 +43,8 @@
         for (var i = 0; (i < 10) && expand; i++) {
           if (matchesSelector(expand, expandSelector)) {
             var img = expand.querySelector(imgSelector);
-            if (img && /\/bmiddle\//.test(img.src)) {
-              var largeImgSrc = img.src.replace(/\/bmiddle\//, "/large/");
+            if (img && urlReplaceRegex.test(img.src)) {
+              var largeImgSrc = img.src.replace(urlReplaceRegex, "/large/");
               window.open(largeImgSrc);
 
               e.stopImmediatePropagation();
