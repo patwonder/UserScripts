@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             tieba.baidu.com-709c0fe7-e313-44bd-9dbd-752bbd80259d@patwonder@163.com
 // @name           百度贴吧图片缩放增强脚本
-// @version        0.70
+// @version        0.71
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    增强百度贴吧图片缩放，看大图无需开新标签页。
@@ -496,7 +496,10 @@ var common = {
     d.querySelector('head').appendChild(style);
     
     var updatePost = function(post) {
-        var field = JSON.parse(post.getAttribute('data-field'));
+        var field = null;
+        try {
+            field = JSON.parse(post.getAttribute('data-field'));
+        } catch (ex) { }
         var floorNum = field && (field.content && (field.content.floor || field.content.post_no));
         if (floorNum && !isNaN(parseFloat(floorNum)) && isFinite(floorNum)) {
             var div = post.querySelector('div.d_floor') || d.createElement('div');
