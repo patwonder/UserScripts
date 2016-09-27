@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             weibo-direct-large-image@patwonder@163.com
 // @name           新浪微博直接看大图
-// @version        1.4
+// @version        1.5
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description
@@ -13,7 +13,7 @@
 // ==/UserScript==
 
 (function(d,w) {
-  var showSelector = "a.S_txt1[action-type=\"widget_photoview\"], a.S_txt1[action-type=\"widget_photoview\"] *";
+  var showSelector = "a.S_txt1[action-type*=\"photoview\"], a.S_txt1[action-type*=\"photoview\"] *, a.S_txt1[action-type*=\"PhotoView\"], a.S_txt1[action-type*=\"PhotoView\"] *";
   var expandSelector = "div.WB_expand_media";
   var imgSelector = ".artwork_box > img, .artwork_box > div > img";
   var urlReplaceRegex = /\/(bmiddle)|(mw\d+)\//;
