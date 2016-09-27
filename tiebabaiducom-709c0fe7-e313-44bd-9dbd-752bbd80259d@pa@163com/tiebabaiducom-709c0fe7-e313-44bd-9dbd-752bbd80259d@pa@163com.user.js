@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             tieba.baidu.com-709c0fe7-e313-44bd-9dbd-752bbd80259d@patwonder@163.com
 // @name           百度贴吧图片缩放增强脚本
-// @version        0.71
+// @version        0.72
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    增强百度贴吧图片缩放，看大图无需开新标签页。
@@ -56,7 +56,7 @@ if (localStorage) {
 
 B_WIDESCREEN_ENABLED = !!btise.wideScreenEnabled;
 B_FLOORNUM_ENABLED = !!btise.floorNumEnabled;
- 
+
 var STR_SCRIPT_NAME = '百度贴吧图片缩放增强脚本';
 
 var common = {
@@ -92,9 +92,9 @@ var common = {
     var IMG_SELECTOR = 'img.BDE_Image, div.p_content img.BDE_Smiley, img.d_content_img, ' + SIGN_SELECTOR;
     var REG_SIGN = /w%3D580.*\/sign=.*?(?=\/)/;
     var images = [];
-    
+
     var matchesSelector = common.matchesSelector;
-    
+
     var prefilterImages = function() {
         var imageNodes = d.querySelectorAll(IMG_SELECTOR);
         for (var i = 0; i < imageNodes.length; i++) {
@@ -102,8 +102,8 @@ var common = {
             if (shouldAdd(image))
                 prefilterImage(image);
         }
-    }
-    
+    };
+
     var prefilterImage = function(image) {
         // Check whether we should reload with original src
         if (REG_SIGN.test(image.src)) {
@@ -119,16 +119,17 @@ var common = {
             }
         }
         // Check for passively loaded images
+        var passiveSrc;
         if (image.hasAttribute("data-passive")) {
-            var passiveSrc = image.getAttribute("data-passive");
+            passiveSrc = image.getAttribute("data-passive");
             image.setAttribute("data-passive", passiveSrc.replace(REG_SIGN, "pic/item"));
         } else if (image.hasAttribute("data-tb-lazyload")) {
-            var passiveSrc = image.getAttribute("data-tb-lazyload");
+            passiveSrc = image.getAttribute("data-tb-lazyload");
             image.setAttribute("data-tb-lazyload", passiveSrc.replace(REG_SIGN, "pic/item"));
         }
         return image;
-    }
-    
+    };
+
     var obtainImages = function() {
         var imageNodes = d.querySelectorAll(IMG_SELECTOR);
         for (var i = 0; i < imageNodes.length; i++) {
@@ -148,7 +149,7 @@ var common = {
             var image = new_images[i];
             if (!shouldAdd(image)) continue;
             image = prefilterImage(image);
-            
+
             images.push(image);
             initImage(image);
             adjustScaling(image);
@@ -171,7 +172,7 @@ var common = {
             addImages([event.target]);
         } else if (event.target.querySelectorAll) {
             var new_images = event.target.querySelectorAll(IMG_SELECTOR);
-            if (new_images.length != 0) {
+            if (new_images.length !== 0) {
                 addImages(new_images);
             }
         }
@@ -182,7 +183,7 @@ var common = {
             removeImages([event.target]);
         } else if (event.target.querySelectorAll) {
             var del_images = event.target.querySelectorAll(IMG_SELECTOR);
-            if (del_images.length != 0) {
+            if (del_images.length !== 0) {
                 removeImages(del_images);
             }
         }
@@ -191,29 +192,30 @@ var common = {
     var stopListener = function(e) {
       if (e.stopImmediatePropagation) e.stopImmediatePropagation();
       else if (e.stopPropagation) e.stopPropagation();
-      
+
       if (e.preventDefault) e.preventDefault();
-      
+
       return false;
     };
     // Image click handler that handles image size switching
     var listener = function(e) {
         // Only handle left clicks
-        if (e.button != 0) return;
-        
+        if (e.button !== 0) return;
+
         var image = (e && e.target) || (w.event && w.event.srcElement);
         // We are expecting clicks on detected images
         if (!image || image.localName != 'img' || image.getAttribute('data-detected') != 'true' || !shouldAdd(image))
           return;
-        
+
         if (image && image.getAttribute('data-disabled') != 'true') {
+            var isSign, img, i;
             if (image.getAttribute('data-fullsized') == 'true') {
                 image.setAttribute('data-fullsized', 'false');
                 setTitle(image);
                 if (e.shiftKey) {
-                    var isSign = matchesSelector(image, SIGN_SELECTOR);
-                    for (var i = 0; i < images.length; i++) {
-                        var img = images[i];
+                    isSign = matchesSelector(image, SIGN_SELECTOR);
+                    for (i = 0; i < images.length; i++) {
+                        img = images[i];
                         // separate scale all images for sign and non-sign images
                         if (isSign != matchesSelector(img, SIGN_SELECTOR))
                             continue;
@@ -227,9 +229,9 @@ var common = {
                 image.setAttribute('data-fullsized', 'true');
                 setTitle(image);
                 if (e.shiftKey) {
-                    var isSign = matchesSelector(image, SIGN_SELECTOR);
-                    for (var i = 0; i < images.length; i++) {
-                        var img = images[i];
+                    isSign = matchesSelector(image, SIGN_SELECTOR);
+                    for (i = 0; i < images.length; i++) {
+                        img = images[i];
                         // separate scale all images for sign and non-sign images
                         if (isSign != matchesSelector(img, SIGN_SELECTOR))
                             continue;
@@ -244,14 +246,14 @@ var common = {
         }
         return stopListener(e);
     };
-    
+
     var isDisplayingFullsize = function(image, callback) {
         if (image.hasAttribute('data-owidth')) {
             var owidth = image.getAttribute('data-owidth');
             callback(image.parentElement.offsetWidth >= owidth);
             return;
         }
-        
+
         var newImg = new Image();
 
         newImg.onload = function() {
@@ -262,7 +264,7 @@ var common = {
             if (image.parentElement && image.parentElement.offsetWidth)
               callback(image.parentElement.offsetWidth >= owidth);
         };
-        
+
         var passiveSrc = image.getAttribute('data-passive') || image.getAttribute('data-tb-lazyload');
         newImg.src = (passiveSrc != "loaded" && passiveSrc) || image.src;
     };
@@ -288,7 +290,7 @@ var common = {
         image.setAttribute('data-detected', 'true');
         setTitle(image);
         image.onclick = undefined;
-        
+
         image.addEventListener("load", function() {
             var passiveSrc = image.getAttribute('data-passive') || image.getAttribute('data-tb-lazyload');
             if (passiveSrc && passiveSrc != "loaded")
@@ -299,7 +301,7 @@ var common = {
             image.setAttribute('data-oheight', height);
             adjustScaling(image);
         }, false);
-        
+
         if (matchesSelector(image, SIGN_SELECTOR)) {
             // wrap sign images into a fixed size container
             common.wrapping = true;
@@ -320,7 +322,7 @@ var common = {
         if (image.getAttribute('data-disabled') != 'true') {
             var isFullsized = image.getAttribute('data-fullsized') == 'true';
             if (image.hasAttribute('data-owidth')) {
-                var owidth = image.getAttribute('data-owidth')
+                var owidth = image.getAttribute('data-owidth');
                 title_a = [IMG_ORG_SIZE_DESC, owidth, '*', image.getAttribute('data-oheight'), '  ',
                 IMG_CUR_PERCENT, isFullsized ? 100 : Math.floor(100 * image.parentElement.offsetWidth / owidth), '%\n'];
             } else {
@@ -336,7 +338,7 @@ var common = {
             op(images[i]);
         }
     };
-    
+
     var adjustScalingAll = function() { doImageOpAll(adjustScaling); };
     var initImageAll = function() { doImageOpAll(initImage); };
 
@@ -355,14 +357,14 @@ var common = {
     w.addEventListener('DOMContentLoaded', loadListener, false);
     w.addEventListener('load', loadListener, false);
     w.addEventListener('click', listener, true);
-    
-		var rightPanelWidth = (function(rightSection) {
+
+    var rightPanelWidth = (function(rightSection) {
         return rightSection ? rightSection.offsetWidth : 0;
     })(d.querySelector('div.right_section'));
-    
+
     var style = d.createElement('style');
     style.setAttribute('type','text/css');
-    
+
     var aInnerHTML = ['img[data-detected=true] { max-width: 100% !important; margin-top: 0 !important; width: auto !important; height: auto !important; cursor: url("data:image/gif;base64,R0lGODlhIAAgAKEAAP///wAAAP///////yH5BAEAAAIALAAAAAAgACAAAAJMlBUZx+2PApggwesk3Qt7XYGdB4EhR5aToqzpo7GJ+zbmTI31IYp7tkH9bDfFMGOM6I4wC/OSfDaXUl71is1qt9yu9wsOi8fkstlQAAA7") 6 6, pointer !important; }\n',
                       'img[data-detected=true][data-fullsized=true]:not([data-disabled=true]) { max-width: none !important; cursor: url("data:image/gif;base64,R0lGODlhIAAgAKEAAP///wAAAP///////yH5BAEAAAIALAAAAAAgACAAAAJLlBUZx+2PApggwesk3Qt7vU2dB4GhSJaikqBptrLuy5jnSB82hefGPvPpTCxhRvGzGDHI5aXpfECjjR71is1qt9yu9wsOi8fk8rgAADs=") 6 6, pointer !important; z-index: 9999999; position: relative; }\n',
                       'img[data-detected=true][data-disabled=true]  { cursor: default !important; }\n',
@@ -411,7 +413,7 @@ var common = {
             '.exp_bar { margin-right: 0 !important; }\n',
             'div.post_bubble_top, div.post_bubble_bottom { display: none !important; }\n',
             'div.post_bubble_middle { width: auto !important; background: none !important; padding: 0 !important; }\n'
-        ])
+        ]);
     }
     style.innerHTML = aInnerHTML.join('');
     d.querySelector('head').appendChild(style);
@@ -422,16 +424,16 @@ var common = {
 
 (function() {
     if (!B_FLOORNUM_ENABLED) return;
-    
+
     var POST_SELECTOR = 'div.l_post';
     var LZL_POST_SELECTOR = 'span.lzl_time';
     var GRAVE_POST_WARNING_THRESHOLD_MILLIS = 30 * 86400 * 1000;
-    
+
     var pint = function(str) {
         var num = parseInt(str, 10);
         return (isNaN(num) || !isFinite(num)) ? 0 : num;
     };
-    
+
     var getPostTimeMillis = function(postTimeString) {
         var postTimeMillis = 0;
         if (postTimeString) {
@@ -442,7 +444,7 @@ var common = {
         }
         return postTimeMillis;
     };
-    
+
     var getPostTimeSummary = function(postTimeString) {
         var postTimeMillis = getPostTimeMillis(postTimeString);
         var postTimeSummary = '';
@@ -477,7 +479,7 @@ var common = {
         }
         return postTimeSummary;
     };
-    
+
     var gravePostWarning = function(postTimeString) {
         var postTimeMillis = getPostTimeMillis(postTimeString);
         return ((Date.now() - postTimeMillis) >= GRAVE_POST_WARNING_THRESHOLD_MILLIS);
@@ -494,7 +496,7 @@ var common = {
                        'div.d_post_content_main { background-color: transparent ! important }'
                       ].join('');
     d.querySelector('head').appendChild(style);
-    
+
     var updatePost = function(post) {
         var field = null;
         try {
@@ -529,17 +531,18 @@ var common = {
     };
     var updateFloorNumField = function() {
         var posts = d.querySelectorAll(POST_SELECTOR);
-        for (var i = 0; i < posts.length; i++)
+        var i;
+        for (i = 0; i < posts.length; i++)
             updatePost(posts[i]);
-        
+
         var lzlposts = d.querySelectorAll(LZL_POST_SELECTOR);
-        for (var i = 0; i < lzlposts.length; i++)
+        for (i = 0; i < lzlposts.length; i++)
             updateLzlPost(lzlposts[i]);
     };
-    
+
     updateFloorNumField();
     setInterval(updateFloorNumField, 30000);
-    
+
     // update time summary when elements are dynamically inserted
     var matchesSelector = common.matchesSelector;
     w.addEventListener('DOMNodeInserted', function(event) {
@@ -552,21 +555,22 @@ var common = {
             }
             if (event.target.querySelectorAll) {
                 var posts = event.target.querySelectorAll(POST_SELECTOR);
-                for (var i = 0; i < posts.length; i++)
+                var i;
+                for (i = 0; i < posts.length; i++)
                     updatePost(posts[i]);
-                
+
                 var lzlposts = event.target.querySelectorAll(LZL_POST_SELECTOR);
-                for (var i = 0; i < lzlposts.length; i++)
+                for (i = 0; i < lzlposts.length; i++)
                     updateLzlPost(lzlposts[i]);
             }
         }
     }, false);
-    
+
 })();
 
 (function() {
     if (!B_SWITCH_ENABLED) return;
-    
+
     var prefs = [
         { name: '宽屏样式', id: 'wsenable', prefName: 'wideScreenEnabled', value: B_WIDESCREEN_ENABLED },
         { name: '楼层计数', id: 'fnenable', prefName: 'floorNumEnabled', value: B_FLOORNUM_ENABLED }
