@@ -7,7 +7,7 @@
 // @description    增强百度贴吧图片缩放，看大图无需开新标签页。
 // @updateURL      https://raw.githubusercontent.com/patwonder/UserScripts/master/tiebabaiducom-709c0fe7-e313-44bd-9dbd-752bbd80259d@pa@163com/tiebabaiducom-709c0fe7-e313-44bd-9dbd-752bbd80259d@pa@163com.user.js
 // @downloadURL    https://raw.githubusercontent.com/patwonder/UserScripts/master/tiebabaiducom-709c0fe7-e313-44bd-9dbd-752bbd80259d@pa@163com/tiebabaiducom-709c0fe7-e313-44bd-9dbd-752bbd80259d@pa@163com.user.js
-// @include        /^https?://tieba\.baidu\.com/((f\?kz\=.*)|(p/.*))/
+// @include        /^https?://tieba\.baidu\.com/((f\?kz=.*)|(p/.*))/
 // @include        http://tieba.baidu.com/club/*/p/*
 // @include        http://tieba.baidu.com/f?kz=*
 // @include        http://tieba.baidu.com/p/*
