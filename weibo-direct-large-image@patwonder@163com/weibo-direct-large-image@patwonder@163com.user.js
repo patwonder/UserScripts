@@ -5,8 +5,6 @@
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description
-// @updateURL      https://raw.githubusercontent.com/patwonder/UserScripts/master/weibo-direct-large-image@patwonder@163com/weibo-direct-large-image@patwonder@163com.user.js
-// @downloadURL    https://raw.githubusercontent.com/patwonder/UserScripts/master/weibo-direct-large-image@patwonder@163com/weibo-direct-large-image@patwonder@163com.user.js
 // @include        http://www.weibo.com/*
 // @include        http://weibo.com/*
 // @run-at         document-end

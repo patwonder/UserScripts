@@ -5,8 +5,6 @@
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    
-// @updateURL      https://raw.githubusercontent.com/patwonder/UserScripts/master/renren-auto-refresh@patwonder@163com/renren-auto-refresh@patwonder@163com.user.js
-// @downloadURL    https://raw.githubusercontent.com/patwonder/UserScripts/master/renren-auto-refresh@patwonder@163com/renren-auto-refresh@patwonder@163com.user.js
 // @include        http://www.renren.com/*
 // @include        http://home.renren.com/*
 // @run-at         document-end

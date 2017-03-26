@@ -5,8 +5,6 @@
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    
-// @updateURL      https://raw.githubusercontent.com/patwonder/UserScripts/master/kill-tieba-pooling@patwonder@163com/kill-tieba-pooling@patwonder@163com.user.js
-// @downloadURL    https://raw.githubusercontent.com/patwonder/UserScripts/master/kill-tieba-pooling@patwonder@163com/kill-tieba-pooling@patwonder@163com.user.js
 // @include        /^https?://tieba\.baidu\.com/.*/
 // @run-at         document-end
 // ==/UserScript==

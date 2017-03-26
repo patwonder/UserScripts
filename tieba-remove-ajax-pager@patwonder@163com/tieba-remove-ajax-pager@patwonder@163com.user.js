@@ -5,8 +5,6 @@
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    
-// @updateURL      https://raw.githubusercontent.com/patwonder/UserScripts/master/tieba-remove-ajax-pager@patwonder@163com/tieba-remove-ajax-pager@patwonder@163com.user.js
-// @downloadURL    https://raw.githubusercontent.com/patwonder/UserScripts/master/tieba-remove-ajax-pager@patwonder@163com/tieba-remove-ajax-pager@patwonder@163com.user.js
 // @include        /^https?://tieba\.baidu\.com/((f\?kz=.*)|(p/.*))/
 // @include        http://tieba.baidu.com/club/*/p/*
 // @include        http://tieba.baidu.com/f?kz=*
