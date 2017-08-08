@@ -7,6 +7,8 @@
 // @description
 // @include        http://www.weibo.com/*
 // @include        http://weibo.com/*
+// @include        https://www.weibo.com/*
+// @include        https://weibo.com/*
 // @run-at         document-end
 // ==/UserScript==
 
