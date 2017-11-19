@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             tieba-remove-ajax-pager@patwonder@163.com
 // @name           贴吧去除ajax翻页
-// @version        1.4
+// @version        1.5
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    
@@ -21,6 +21,7 @@
 // @include        http://post.baidu.com.cn/f?*ct=*z=*
 // @include        http://tieba.baidu.com/f?*kw=*
 // @run-at         document-end
+// @grant          none
 // ==/UserScript==
 
 (function(d, w) {
@@ -48,4 +49,4 @@
     if (matchesSelector(e.target, ".l_pager *, .pager *, #frs_list_pager *") && !matchesSelector(e.target, ".lzl_li_pager *"))
       return stopListener(e);
   }, true);
-})(document, typeof(unsafeWindow) !== "undefined" ? unsafeWindow : window);
+})(document, window);

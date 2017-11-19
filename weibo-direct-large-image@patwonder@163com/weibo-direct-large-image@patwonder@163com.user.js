@@ -1,15 +1,18 @@
 // ==UserScript==
 // @id             weibo-direct-large-image@patwonder@163.com
 // @name           新浪微博直接看大图
-// @version        1.5
+// @version        1.6
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description
+// @include        https://www.weibo.com/*
+// @include        https://weibo.com/*
 // @include        http://www.weibo.com/*
 // @include        http://weibo.com/*
 // @include        https://www.weibo.com/*
 // @include        https://weibo.com/*
 // @run-at         document-end
+// @grant          none
 // ==/UserScript==
 
 (function(d,w) {
@@ -58,4 +61,4 @@
       }
     }
   }, true);
-})(document, typeof(unsafeWindow) !== "undefined" ? unsafeWindow : window);
+})(document, window);

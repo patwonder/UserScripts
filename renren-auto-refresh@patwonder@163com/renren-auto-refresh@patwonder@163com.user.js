@@ -1,13 +1,14 @@
 // ==UserScript==
 // @id             renren-auto-refresh@patwonder@163.com
 // @name           人人网每半小时自动刷新
-// @version        1.4
+// @version        1.5
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    
 // @include        http://www.renren.com/*
 // @include        http://home.renren.com/*
 // @run-at         document-end
+// @grant          none
 // ==/UserScript==
 
 (function(d, w) {
@@ -56,4 +57,4 @@
       li.textContent = Math.round((targetTime - time) / 1000) + "秒后刷新";
     }, 1000);
   });
-})(document, typeof(unsafeWindow) !== "undefined" ? unsafeWindow : window);
+})(document, window);
