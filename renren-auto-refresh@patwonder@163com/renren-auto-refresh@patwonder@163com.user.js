@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             renren-auto-refresh@patwonder@163.com
 // @name           人人网每半小时自动刷新
-// @version        1.5
+// @version        1.6
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    
@@ -16,7 +16,7 @@
   li.style.cssFloat = "right";
   li.style.lineHeight = "50px";
   
-  w.addEventListener("DOMContentLoaded", function() {
+  w.addEventListener("load", function() {
     var loginForm = d.querySelector("form#loginForm");
     if (loginForm) {
       setTimeout(function() {
