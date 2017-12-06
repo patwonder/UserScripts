@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             tieba.baidu.com-709c0fe7-e313-44bd-9dbd-752bbd80259d@patwonder@163.com
 // @name           百度贴吧图片缩放增强脚本
-// @version        0.74
+// @version        0.75
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    增强百度贴吧图片缩放，看大图无需开新标签页。
@@ -375,7 +375,8 @@ var common = {
                       'div.d_post_content_main, div.d_post_content { overflow: visible !important; }\n',
                       'div.j_lzl_container img.BDE_Smiley { max-width: 30px !important; max-height: 30px !important; }\n',
                       'ul.nav_right a { height: 36px; float: right; color: #5C6573; margin: 5px 5px; padding: 10px 5px; }\n',
-                      'div.p_content.p_content_nameplate > img[width="1"][height="1"] { display: none !important; }'];
+                      'div.p_content.p_content_nameplate > img[width="1"][height="1"] { display: none !important; }',
+                      'body { overflow-x: auto !important; }'];
     if (B_WIDESCREEN_ENABLED) {
         aInnerHTML = aInnerHTML.concat(['\n',
             '#container, div.content, #tb_nav, div.p_thread, #pb_content, div.left_section, #j_core_title_wrap, div.l_post, div.d_post_content_main, div.core_reply_wrapper, div.pb_footer, div.d_sign_split, blockquote.d_quote, blockquote.d_quote fieldset, .d_quote .quote_content, div.core { width: auto !important; }\n',
