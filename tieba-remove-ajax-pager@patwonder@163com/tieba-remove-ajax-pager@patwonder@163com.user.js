@@ -1,11 +1,11 @@
 // ==UserScript==
 // @id             tieba-remove-ajax-pager@patwonder@163.com
 // @name           贴吧去除ajax翻页
-// @version        1.5
+// @version        1.6
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    
-// @include        /^https?://tieba\.baidu\.com/((f\?kz=.*)|(p/.*))/
+// @include        /^https?://tieba\.baidu\.com/((f\?(kz|kw)=.*)|(p/.*))/
 // @include        http://tieba.baidu.com/club/*/p/*
 // @include        http://tieba.baidu.com/f?kz=*
 // @include        http://tieba.baidu.com/p/*
