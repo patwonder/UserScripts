@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             tieba.baidu.com-709c0fe7-e313-44bd-9dbd-752bbd80259d@patwonder@163.com
 // @name           百度贴吧图片缩放增强脚本
-// @version        0.75
+// @version        0.77
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    增强百度贴吧图片缩放，看大图无需开新标签页。
@@ -90,6 +90,8 @@ var common = {
     var IMG_INSIDE_EDITOR_SELECTOR = '#editor img, #tb_rich_poster img';
     var IMG_SELECTOR = 'img.BDE_Image, div.p_content img.BDE_Smiley, img.d_content_img, ' + SIGN_SELECTOR;
     var REG_SIGN = /w%3D580.*\/sign=.*?(?=\/)/;
+    var REG_TBPICAU = /\/(\w+)\.[a-zA-Z]{3,4}\?.*tbpicau=[\w-_]+/;
+    var REG_TID = /[\/=](\d+)/;
     var images = [];
 
     var matchesSelector = common.matchesSelector;
@@ -114,6 +116,7 @@ var common = {
                 image.parentElement.insertBefore(newimg, image);
                 image.parentElement.removeChild(image);
                 common.wrapping = false;
+                checkTbpicau(newimg, image.src);
                 return newimg;
             }
         }
@@ -126,7 +129,50 @@ var common = {
             passiveSrc = image.getAttribute("data-tb-lazyload");
             image.setAttribute("data-tb-lazyload", passiveSrc.replace(REG_SIGN, "pic/item"));
         }
+        checkTbpicau(image, passiveSrc);
         return image;
+    };
+  
+    var checkTbpicau = function(image, src) {
+        var tbpicauRes = REG_TBPICAU.exec(src);
+        var tidRes = REG_TID.exec(w.location.pathname);
+        if (tbpicauRes && tidRes) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var waterurl = null;
+                    try {
+                        waterurl = JSON.parse(this.responseText).data.img.original.waterurl;
+                    } catch(ex) {}
+                  
+                    if (waterurl) {
+                        var passiveSrc = image.getAttribute('data-passive') || image.getAttribute('data-tb-lazyload');
+                        if (passiveSrc && passiveSrc != "loaded") {
+                            if (image.hasAttribute("data-passive")) {
+                                image.setAttribute("data-passive", waterurl);
+                            } else {
+                                image.setAttribute("data-tb-lazyload", waterurl);
+                            }
+                        } else {
+                            var newimg = d.createElement('img');
+                            newimg.src = waterurl;
+                            newimg.className = image.className;
+                            if (image.parentElement) {
+                                common.wrapping = true;
+                                image.parentElement.insertBefore(newimg, image);
+                                image.parentElement.removeChild(image);
+                                common.wrapping = false;
+                                replacePrefilteredImage(image, newimg);
+                            }
+                        }
+                    }
+                }
+            };
+            var picId = tbpicauRes[1];
+            var tid = tidRes[1];
+            xhttp.open("GET", "https://tieba.baidu.com/photo/p?alt=jview&pic_id=" + picId + "&tid=" + tid, true);
+            xhttp.send();
+        }
     };
 
     var obtainImages = function() {
@@ -165,6 +211,19 @@ var common = {
             }
         }
     };
+    var replacePrefilteredImage = function(oldImage, newImage) {
+        for (var j = 0; j < images.length; j++) {
+            if (images[j] == oldImage) {
+                images.splice(j, 1);
+                break;
+            }
+        }
+
+        images.push(newImage);
+        initImage(newImage);
+        adjustScaling(newImage);
+    };
+  
     w.addEventListener('DOMNodeInserted', function(event) {
         if (common.wrapping) return;
         if (matchesSelector(event.target, IMG_SELECTOR)) {
@@ -507,7 +566,8 @@ var common = {
             var div = post.querySelector('div.d_floor') || d.createElement('div');
             var dateString = field.content.date;
             if (!dateString) {
-              var span = post.querySelector('span.j_reply_data, .post-tail-wrap > .tail-info:last-child');
+              var spans = post.querySelectorAll('span.j_reply_data, .post-tail-wrap > .tail-info');
+              var span = spans.length > 0 ? spans[spans.length - 1] : null;
               dateString = span ? span.textContent : '';
             }
             if (gravePostWarning(dateString))
