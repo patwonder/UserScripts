@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             tieba.baidu.com-709c0fe7-e313-44bd-9dbd-752bbd80259d@patwonder@163.com
 // @name           百度贴吧图片缩放增强脚本
-// @version        0.77
+// @version        0.78
 // @namespace      patwonder@163.com
 // @author         patwonder
 // @description    增强百度贴吧图片缩放，看大图无需开新标签页。
@@ -91,7 +91,7 @@ var common = {
     var IMG_SELECTOR = 'img.BDE_Image, div.p_content img.BDE_Smiley, img.d_content_img, ' + SIGN_SELECTOR;
     var REG_SIGN = /w%3D580.*\/sign=.*?(?=\/)/;
     var REG_TBPICAU = /\/(\w+)\.[a-zA-Z]{3,4}\?.*tbpicau=[\w-_]+/;
-    var REG_TID = /[\/=](\d+)/;
+    var REG_TID = /(?:\/p\/|[\?&]kz=)(\d+)/;
     var images = [];
 
     var matchesSelector = common.matchesSelector;
@@ -108,35 +108,49 @@ var common = {
     var prefilterImage = function(image) {
         // Check whether we should reload with original src
         if (REG_SIGN.test(image.src)) {
-            var newimg = d.createElement('img');
-            newimg.src = image.src.replace(REG_SIGN, "pic/item");
-            newimg.className = image.className;
-            if (image.parentElement) {
-                common.wrapping = true;
-                image.parentElement.insertBefore(newimg, image);
-                image.parentElement.removeChild(image);
-                common.wrapping = false;
-                checkTbpicau(newimg, image.src);
-                return newimg;
+            if (REG_TBPICAU.test(image.src)) {
+                checkTbpicau(image, image.src);
+            } else {
+                var newimg = d.createElement('img');
+                newimg.src = image.src.replace(REG_SIGN, "pic/item");
+                newimg.className = image.className;
+                if (image.parentElement) {
+                    common.wrapping = true;
+                    image.parentElement.insertBefore(newimg, image);
+                    image.parentElement.removeChild(image);
+                    common.wrapping = false;
+                    return newimg;
+                }
             }
+            return image;
         }
+
         // Check for passively loaded images
+        var passiveAttr;
         var passiveSrc;
         if (image.hasAttribute("data-passive")) {
-            passiveSrc = image.getAttribute("data-passive");
-            image.setAttribute("data-passive", passiveSrc.replace(REG_SIGN, "pic/item"));
+            passiveAttr = "data-passive";
         } else if (image.hasAttribute("data-tb-lazyload")) {
-            passiveSrc = image.getAttribute("data-tb-lazyload");
-            image.setAttribute("data-tb-lazyload", passiveSrc.replace(REG_SIGN, "pic/item"));
+            passiveAttr = "data-tb-lazyload";
         }
-        checkTbpicau(image, passiveSrc);
+
+        if (passiveAttr) {
+            passiveSrc = image.getAttribute(passiveAttr);
+            if (REG_TBPICAU.test(passiveSrc)) {
+                checkTbpicau(image, passiveSrc);
+            } else {
+                image.setAttribute(passiveAttr, passiveSrc.replace(REG_SIGN, "pic/item"));
+            }
+        }
+
         return image;
     };
-  
+
+    var tidRes = REG_TID.exec(w.location.href);
+    var tid = tidRes && tidRes[1];
     var checkTbpicau = function(image, src) {
         var tbpicauRes = REG_TBPICAU.exec(src);
-        var tidRes = REG_TID.exec(w.location.pathname);
-        if (tbpicauRes && tidRes) {
+        if (tbpicauRes && tid) {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -169,7 +183,6 @@ var common = {
                 }
             };
             var picId = tbpicauRes[1];
-            var tid = tidRes[1];
             xhttp.open("GET", "https://tieba.baidu.com/photo/p?alt=jview&pic_id=" + picId + "&tid=" + tid, true);
             xhttp.send();
         }
